@@ -1,0 +1,27 @@
+HELP.md
+build/
+!**/src/main/**
+!**/src/test/**
+.env
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.xml
+
+### Gradle ###
+.gradle
+
+### Allure ###
+
+allure-report
+
+### Logs ###
+*.log
+/out/
+
+### Git ###
+
+.gitattributes

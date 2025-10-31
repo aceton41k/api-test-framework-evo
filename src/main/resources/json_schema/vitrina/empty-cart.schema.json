@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Empty Cart",
+  "description": "Schema for an empty shopping cart",
+  "type": "array",
+  "maxItems": 0
+}

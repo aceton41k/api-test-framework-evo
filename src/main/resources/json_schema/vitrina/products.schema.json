@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Get Products Response",
+  "description": "Response schema for a list of products",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{24}$",
+        "description": "Unique product ID (MongoDB ObjectId format)"
+      },
+      "ikpu_code": {
+        "type": "string",
+        "description": "IKPU tax code"
+      },
+      "package_code": {
+        "type": "string",
+        "description": "Package code for the product"
+      },
+      "nds": {
+        "type": ["string", "null"],
+        "description": "NDS value (can be empty string)"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Product name"
+      },
+      "merchant_id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{24}$",
+        "description": "Merchant identifier"
+      },
+      "service_id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{24}$",
+        "description": "Service identifier"
+      },
+      "category_id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{24}$",
+        "description": "Category identifier"
+      },
+      "in_stock": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Number of items in stock"
+      },
+      "description": {
+        "type": "string",
+        "description": "Product description"
+      },
+      "price": {
+        "type": "integer",
+        "minimum": 1000,
+        "description": "Price in smallest currency unit (e.g. tiyin)"
+      },
+      "price_format": {
+        "type": "string",
+        "description": "Human-readable price format"
+      },
+      "is_available": {
+        "type": "boolean",
+        "description": "Availability status"
+      },
+      "image": {
+        "type": "string",
+        "format": "uri",
+        "description": "Product image URL"
+      },
+      "products_count_cart": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Quantity of this product in user's cart"
+      },
+      "total_sum": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Total cost for this product in the cart"
+      },
+      "total_sum_format": {
+        "type": "string",
+        "description": "Human-readable total sum format"
+      }
+    },
+    "required": [
+      "id",
+      "ikpu_code",
+      "package_code",
+      "nds",
+      "name",
+      "merchant_id",
+      "service_id",
+      "category_id",
+      "in_stock",
+      "description",
+      "price",
+      "price_format",
+      "is_available",
+      "image",
+      "products_count_cart",
+      "total_sum",
+      "total_sum_format"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,628 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LegalEntityInfo",
+  "type": "object",
+  "properties": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "file": {
+          "type": "object",
+          "properties": {
+            "has": {
+              "type": "string"
+            },
+            "id": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "has",
+            "id"
+          ]
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "company": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "shortName": {
+                  "type": "string"
+                },
+                "opf": {
+                  "type": "integer"
+                },
+                "kfs": {
+                  "type": "integer"
+                },
+                "tin": {
+                  "type": "string"
+                },
+                "oked": {
+                  "type": "string"
+                },
+                "soogu": {
+                  "type": "string"
+                },
+                "sooguRegistrator": {
+                  "type": "string"
+                },
+                "registrationDate": {
+                  "type": "string"
+                },
+                "registrationNumber": {
+                  "type": "string"
+                },
+                "reregistrationDate": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "integer"
+                },
+                "statusUpdated": {
+                  "type": "string"
+                },
+                "taxStatus": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "liquidationDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "liquidationReason": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "suspensionDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "suspensionReason": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "taxMode": {
+                  "type": "integer"
+                },
+                "vatNumber": {
+                  "type": "integer"
+                },
+                "vatRegistrationDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "taxpayerType": {
+                  "type": "integer"
+                },
+                "businessType": {
+                  "type": "integer"
+                },
+                "businessFund": {
+                  "type": "integer"
+                },
+                "businessStructure": {
+                  "type": "integer"
+                },
+                "businessFundCurrency": {
+                  "type": "string"
+                },
+                "createdSysDate": {
+                  "type": "string"
+                },
+                "updatedSysDate": {
+                  "type": "string"
+                },
+                "taxModeBeginDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "taxModeEndDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "activityTypes": {
+                  "type": [
+                    "array",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "shortName",
+                "opf",
+                "kfs",
+                "tin",
+                "oked",
+                "soogu",
+                "sooguRegistrator",
+                "registrationDate",
+                "registrationNumber",
+                "reregistrationDate",
+                "status",
+                "statusUpdated",
+                "taxMode",
+                "vatNumber",
+                "taxpayerType",
+                "businessType",
+                "businessFund",
+                "businessStructure",
+                "businessFundCurrency",
+                "createdSysDate",
+                "updatedSysDate"
+              ]
+            },
+            "companyBillingAddress": {
+              "type": "object",
+              "properties": {
+                "countryCode": {
+                  "type": "integer"
+                },
+                "sectorCode": {
+                  "type": "integer"
+                },
+                "villageCode": {
+                  "type": "string"
+                },
+                "streetName": {
+                  "type": "string"
+                },
+                "house": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "flat": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "soato": {
+                  "type": "integer"
+                },
+                "cadastreNumber": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "postcode": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "countryCode",
+                "sectorCode",
+                "villageCode",
+                "streetName",
+                "soato"
+              ]
+            },
+            "companyShippingAddresses": {
+              "type": "array",
+              "items": {
+                "$ref": "#/properties/response/properties/data/properties/companyBillingAddress"
+              }
+            },
+            "companyExtraInfo": {
+              "type": "object",
+              "properties": {
+                "companyExtraInfoId": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "avgNumberEmployees": {
+                  "type": "integer"
+                },
+                "monthlyNumberEmployees": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "avgNumberEmployees"
+              ]
+            },
+            "director": {
+              "type": "object",
+              "properties": {
+                "lastName": {
+                  "type": "string"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "middleName": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "nationality": {
+                  "type": "string"
+                },
+                "citizenship": {
+                  "type": "string"
+                },
+                "passportSeries": {
+                  "type": "string"
+                },
+                "passportNumber": {
+                  "type": "string"
+                },
+                "pinfl": {
+                  "type": "string"
+                },
+                "tin": {
+                  "type": "string"
+                },
+                "birthDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "individualId": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "countryCode": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "lastName",
+                "firstName",
+                "passportSeries",
+                "passportNumber",
+                "pinfl",
+                "tin"
+              ]
+            },
+            "directorAddress": {
+              "$ref": "#/properties/response/properties/data/properties/companyBillingAddress"
+            },
+            "directorContact": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": ["phone"]
+            },
+            "accountant": {
+              "type": "object",
+              "properties": {
+                "lastName": {
+                  "type": "string"
+                },
+                "firstName": {
+                  "type": "string"
+                },
+                "middleName": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "nationality": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "citizenship": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "passportSeries": {
+                  "type": "string"
+                },
+                "passportNumber": {
+                  "type": "string"
+                },
+                "pinfl": {
+                  "type": "string"
+                },
+                "tin": {
+                  "type": "string"
+                },
+                "birthDate": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "individualId": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "countryCode": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "lastName",
+                "firstName",
+                "passportSeries",
+                "passportNumber",
+                "pinfl",
+                "tin"
+              ]
+            },
+            "accountantAddress": {
+              "$ref": "#/properties/response/properties/data/properties/companyBillingAddress"
+            },
+            "accountantContact": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": ["phone"]
+            },
+            "companyContact": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "argos": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "companyBanks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "mfo": {
+                    "type": "string"
+                  },
+                  "paymentAccount": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "integer"
+                  },
+                  "openDate": {
+                    "type": "string"
+                  },
+                  "closeDate": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "attribute": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "mfo",
+                  "paymentAccount",
+                  "status",
+                  "openDate",
+                  "attribute"
+                ]
+              }
+            },
+            "founders": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "founderIndividual": {
+                    "type": "object",
+                    "properties": {
+                      "lastName": {
+                        "type": "string"
+                      },
+                      "firstName": {
+                        "type": "string"
+                      },
+                      "middleName": {
+                        "type": "string"
+                      },
+                      "gender": {
+                        "type": "integer"
+                      },
+                      "nationality": {
+                        "type": "string"
+                      },
+                      "citizenship": {
+                        "type": "string"
+                      },
+                      "passportSeries": {
+                        "type": "string"
+                      },
+                      "passportNumber": {
+                        "type": "string"
+                      },
+                      "pinfl": {
+                        "type": "string"
+                      },
+                      "tin": {
+                        "type": "string"
+                      },
+                      "birthDate": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "individualId": {
+                        "type": "integer"
+                      },
+                      "countryCode": {
+                        "type": "string"
+                      },
+                      "founderSharePercent": {
+                        "type": "integer"
+                      },
+                      "founderShareSum": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "lastName",
+                      "firstName",
+                      "passportSeries",
+                      "passportNumber",
+                      "pinfl",
+                      "tin",
+                      "founderSharePercent",
+                      "founderShareSum"
+                    ]
+                  },
+                  "founderLegal": {
+                    "type": [
+                      "object",
+                      "null"
+                    ]
+                  },
+                  "founderContact": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "phone": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "founderAddress": {
+                    "$ref": "#/properties/response/properties/data/properties/companyBillingAddress"
+                  }
+                },
+                "required": [
+                  "founderIndividual",
+                  "founderAddress"
+                ]
+              }
+            },
+            "companyLink": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "companyBranches": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "required": [
+            "company",
+            "companyBillingAddress",
+            "companyShippingAddresses",
+            "companyExtraInfo",
+            "director",
+            "directorAddress",
+            "directorContact",
+            "accountant",
+            "accountantAddress",
+            "accountantContact",
+            "companyBanks",
+            "founders",
+            "companyLink",
+            "companyBranches"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "success",
+        "file",
+        "data",
+        "errors"
+      ]
+    },
+    "translations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": [
+    "response",
+    "translations"
+  ]
+}

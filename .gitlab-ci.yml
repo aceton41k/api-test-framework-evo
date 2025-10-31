@@ -1,0 +1,124 @@
+image: gradle:8.12-jdk21
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "api" || $CI_PIPELINE_SOURCE == "trigger"'
+      when: always
+    - when: never
+
+stages:
+  - prepare
+  - test
+  - notify
+
+variables:
+  ALLURE_VERSION: "2.29.0"
+  ALLURE_RESULTS_PATH: "build/allure-results"
+  ALLURE_REPORT_PATH: "build/reports/allure-report/allureReport"
+  ALLURE_NOTIFICATION_VERSION: "4.8.0"
+  ALLURE_PROJECT_ID: "273"
+  ALLURE_NOTIFICATION_CONFIG_PATH: "src/main/resources/allure-notifications.json"
+  ALLURE_CTL_VERSION: "2.16.0"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .gradle/caches/
+    - .gradle/wrapper/
+
+install_allurectl:
+  stage: prepare
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master" && ($CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "api" || $CI_PIPELINE_SOURCE == "trigger")'
+      when: always
+    - when: never
+  script:
+    - echo "Installing allurectl"
+    - wget -q https://github.com/allure-framework/allurectl/releases/download/${ALLURE_CTL_VERSION}/allurectl_linux_amd64 -O allurectl
+    - chmod +x allurectl
+    - ./allurectl auth login
+  artifacts:
+    paths: [allurectl]
+    expire_in: 1h
+
+test_master:
+  stage: test
+  needs: ["install_allurectl"]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master" && ($CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "api" || $CI_PIPELINE_SOURCE == "trigger")'
+      when: always
+    - when: never
+  script:
+    - export ALLURE_RESULTS=$ALLURE_RESULTS_PATH
+    - export ALLURE_PROJECT_ID=$ALLURE_PROJECT_ID
+    - export ALLURE_LAUNCH_NAME="IntegrationApiAutoTests $(TZ='Asia/Tashkent' date '+%d.%m.%Y %H:%M:%S')"
+    - |
+      if [ -n "$SUITE" ]; then
+        echo "Running selected tests: $SUITE"
+        ./allurectl watch -- ./gradlew clean test --tests "$SUITE"
+      else
+        echo "Running all tests"
+        ./allurectl watch -- ./gradlew clean test
+      fi
+  after_script:
+    - export $(./allurectl job-run env)
+    - echo "LAUNCH_LINK=${ALLURE_ENDPOINT}/launch/${ALLURE_LAUNCH_ID}" > launch_link.env
+    - ./gradlew allureReport
+    - if [ -f "${ALLURE_REPORT_PATH}/index.html" ]; then echo "Allure report generated"; else echo "Allure report not found"; fi
+  artifacts:
+    when: always
+    expire_in: 1h
+    reports:
+      junit: build/test-results/test/*.xml
+      dotenv: launch_link.env
+    paths:
+      - ${ALLURE_REPORT_PATH}
+
+test_branch:
+  stage: test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH != "master"'
+      when: always
+    - when: never
+  script:
+    - ./gradlew clean test
+  artifacts:
+    when: always
+    expire_in: 1h
+    reports:
+      junit: build/test-results/test/*.xml
+
+telegram_notify:
+  stage: notify
+  needs: ["test_master"]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master" && ($CI_PIPELINE_SOURCE == "push" || $CI_PIPELINE_SOURCE == "api" || $CI_PIPELINE_SOURCE == "trigger")'
+      when: always
+    - when: never
+  script:
+    - |
+      LAUNCH_LINK="${LAUNCH_LINK:-Ссылка недоступна}"
+
+      # COMMENT: берём из триггера, иначе дефолт
+      if [ -n "$COMMENT" ]; then
+        EFFECTIVE_COMMENT="$COMMENT"
+      else
+        if [ -z "$GITLAB_USER_NAME" ]; then
+          EFFECTIVE_COMMENT="Запущено триггером"
+        else
+          EFFECTIVE_COMMENT="Запущено пользователем $GITLAB_USER_NAME"
+        fi
+      fi
+
+      # Оверрайды телеги
+      CHAT_ID="${TELEGRAM_CHAT_ID_OVERRIDE:-$TELEGRAM_CHAT_ID}"
+      TOKEN="${TELEGRAM_TOKEN_OVERRIDE:-$TELEGRAM_TOKEN}"
+
+      tmp_cfg="$(mktemp)"
+      cp "$ALLURE_NOTIFICATION_CONFIG_PATH" "$tmp_cfg"
+      sed -i "s|\${ALLURE_REPORT_PATH}|${ALLURE_REPORT_PATH}|g" "$tmp_cfg"
+      sed -i "s|\${LAUNCH_LINK}|${LAUNCH_LINK}|g" "$tmp_cfg"
+      sed -i "s|\${TELEGRAM_TOKEN}|${TOKEN}|g" "$tmp_cfg"
+      sed -i "s|\${TELEGRAM_CHAT_ID}|${CHAT_ID}|g" "$tmp_cfg"
+      sed -i "s|\${COMMENT}|${EFFECTIVE_COMMENT}|g" "$tmp_cfg"
+      java -DconfigFile="$tmp_cfg" -jar "lib/allure-notifications-${ALLURE_NOTIFICATION_VERSION}.jar"

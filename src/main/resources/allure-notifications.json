@@ -1,0 +1,17 @@
+{
+  "base": {
+    "logo": "",
+    "project": "Integration Api Autotests",
+    "environment": "uz.click.IntegrationApiAutoTests",
+    "comment": "${COMMENT}",
+    "reportLink": "${LAUNCH_LINK}",
+    "language": "ru",
+    "allureFolder": "${ALLURE_REPORT_PATH}",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "${TELEGRAM_TOKEN}",
+    "chat": "${TELEGRAM_CHAT_ID}",
+    "replyTo": ""
+  }
+}

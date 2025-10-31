@@ -1,0 +1,86 @@
+plugins {
+    id("java")
+    id("org.springframework.boot") version "3.4.1"
+    id("io.qameta.allure") version "2.12.0"
+    id("io.freefair.lombok") version "8.10.2"
+    id("com.diffplug.spotless") version "6.19.0"
+    id("org.gradle.test-retry") version "1.6.1"
+}
+
+// Подключаем файл с дополнительными задачами (путь относительно корня проекта)
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+dependencies {
+    // Spring Boot
+    implementation("org.springframework.boot:spring-boot-starter:$springVersion")
+    implementation("org.springframework.boot:spring-boot-starter-test:$springVersion"){
+        exclude group: "org.mockito"
+    }
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:$springVersion")
+
+    implementation("org.springframework.cloud:spring-cloud-starter-vault-config:4.3.0")
+
+    implementation("me.paulschwarz:spring-dotenv:4.0.0")
+
+    // Allure
+    implementation("io.qameta.allure:allure-rest-assured:$allureVersion")
+    implementation("org.aspectj:aspectjweaver:$aspectJVer")
+
+    // Lombok
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+    // Rest-Assured
+    implementation("io.rest-assured:rest-assured:$restAssuredVersion") {
+        exclude group: 'commons-logging', module: 'commons-logging'
+    }
+    implementation "io.rest-assured:json-schema-validator:$restAssuredVersion"
+
+    // Jackson-аннотации
+    testImplementation("com.fasterxml.jackson.core:jackson-annotations")
+
+    // AssertJ, JUnit
+    testImplementation("org.assertj:assertj-core:$assertJCore")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:12.10.0.jre11'
+}
+
+allure {
+    version = allureVersion
+    adapter {
+        aspectjWeaver = false
+        frameworks {
+            junit5 {
+                adapterVersion = allureVersion
+            }
+        }
+    }
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+//    retry {
+//        maxRetries.set(2)
+//        failOnPassedAfterRetry.set(false)
+//    }
+    ignoreFailures = true
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.encoding = 'UTF-8'
+    options.charSet = 'UTF-8'
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Это чтобы кириллица корректно отображалась в компиляции
+}
+
+

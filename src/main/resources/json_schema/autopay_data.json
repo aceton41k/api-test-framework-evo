@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Model",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "jsonrpc": {
+      "type": "string"
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "step": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        },
+        "get_info": {
+          "type": "boolean"
+        },
+        "form": {
+          "type": "array",
+          "items": {
+            "type": "array"
+          }
+        },
+        "condition": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "action": {
+                "type": "string"
+              },
+              "method": {
+                "type": "object",
+                "properties": {
+                  "or": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "==": {
+                          "type": "array",
+                          "items": {
+                            "oneOf": [
+                              {
+                                "properties": {
+                                  "var": {
+                                    "type": "string"
+                                  }
+                                },
+                                "type": "object"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "=="
+                      ]
+                    }
+                  }
+                }
+              },
+              "setTo": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "action",
+              "method",
+              "setTo"
+            ]
+          }
+        },
+        "settings": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {}
+            },
+            "ussd_query": {
+              "type": "string"
+            }
+          }
+        },
+        "offline": {
+          "type": "array",
+          "items": {}
+        }
+      }
+    }
+  }
+}

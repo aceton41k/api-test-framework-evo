@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Get Categories Response",
+  "description": "Response schema for list of categories",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{24}$",
+        "description": "Unique category ID (MongoDB ObjectId format)"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Category name"
+      },
+      "merchant_id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{24}$",
+        "description": "Merchant identifier (ObjectId format)"
+      },
+      "service_id": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{24}$",
+        "description": "Service identifier (ObjectId format)"
+      },
+      "status": {
+        "type": "boolean",
+        "description": "Whether the category is active"
+      }
+    },
+    "required": ["id", "name", "merchant_id", "service_id", "status"],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "UniversityStudyCertificate",
+  "type": "object",
+  "properties": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "file": {
+          "type": "object",
+          "properties": {
+            "has": {
+              "type": "string"
+            },
+            "id": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "has",
+            "id"
+          ]
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "success": {
+              "type": "boolean"
+            },
+            "code": {
+              "type": "string"
+            },
+            "data": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "success",
+            "code",
+            "data"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "success",
+        "file",
+        "data",
+        "errors"
+      ]
+    },
+    "translations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name_ru": {
+            "type": "string"
+          },
+          "name_en": {
+            "type": "string"
+          },
+          "name_uz": {
+            "type": "string"
+          },
+          "is_title": {
+            "type": "boolean"
+          },
+          "sort": {
+            "type": "integer"
+          },
+          "is_copied": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name_ru",
+          "name_en",
+          "name_uz",
+          "is_title",
+          "sort",
+          "is_copied"
+        ]
+      }
+    }
+  },
+  "required": [
+    "response",
+    "translations"
+  ]
+}

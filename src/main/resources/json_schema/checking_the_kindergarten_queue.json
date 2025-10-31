@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KindergartenQueue",
+  "type": "object",
+  "properties": {
+    "response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "file": {
+          "type": "object",
+          "properties": {
+            "has": {
+              "type": "string"
+            },
+            "id": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "has",
+            "id"
+          ]
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "parent_pinfl": {
+              "type": "string"
+            },
+            "mother_first_name": {
+              "type": "string"
+            },
+            "mother_second_name": {
+              "type": "string"
+            },
+            "mother_last_name": {
+              "type": "string"
+            },
+            "child_first_name": {
+              "type": "string"
+            },
+            "child_second_name": {
+              "type": "string"
+            },
+            "child_last_name": {
+              "type": "string"
+            },
+            "child_full_name": {
+              "type": "string"
+            },
+            "child_gender": {
+              "type": "integer"
+            },
+            "child_date_of_birth": {
+              "type": "string"
+            },
+            "has_preference": {
+              "type": "integer"
+            },
+            "benefit_type_id": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "application_date": {
+              "type": "string"
+            },
+            "application_number": {
+              "type": "string"
+            },
+            "kindergarten_id": {
+              "type": "integer"
+            },
+            "application_status": {
+              "type": "string"
+            },
+            "status_id": {
+              "type": "integer"
+            },
+            "birth_certificate": {
+              "type": "string"
+            },
+            "institution_name": {
+              "type": "string"
+            },
+            "institution_class_name": {
+              "type": "string"
+            },
+            "phone_number": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "simple_queue_count": {
+              "type": "integer"
+            },
+            "pref_queue_count": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "parent_pinfl",
+            "mother_first_name",
+            "mother_second_name",
+            "mother_last_name",
+            "child_first_name",
+            "child_second_name",
+            "child_last_name",
+            "child_full_name",
+            "child_gender",
+            "child_date_of_birth",
+            "has_preference",
+            "benefit_type_id",
+            "application_date",
+            "application_number",
+            "kindergarten_id",
+            "application_status",
+            "status_id",
+            "birth_certificate",
+            "institution_name",
+            "institution_class_name",
+            "phone_number",
+            "source",
+            "simple_queue_count",
+            "pref_queue_count"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "success",
+        "file",
+        "data",
+        "errors"
+      ]
+    },
+    "translations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name_ru": {
+            "type": "string"
+          },
+          "name_en": {
+            "type": "string"
+          },
+          "name_uz": {
+            "type": "string"
+          },
+          "is_title": {
+            "type": "boolean"
+          },
+          "sort": {
+            "type": "integer"
+          },
+          "is_copied": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name_ru",
+          "name_en",
+          "name_uz",
+          "is_title",
+          "sort",
+          "is_copied"
+        ]
+      }
+    }
+  },
+  "required": [
+    "response",
+    "translations"
+  ]
+}

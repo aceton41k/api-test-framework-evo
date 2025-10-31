@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Get Service Details Response",
+  "description": "Response schema for a single service details object",
+  "type": "object",
+  "properties": {
+    "has_menu": { "type": "boolean" },
+    "id": { "type": "string", "minLength": 1 },
+    "logo": { "type": ["string", "null"], "format": "string" },
+    "background": { "type": ["string", "null"], "format": "string" },
+    "preview_text": { "type": ["string", "null"], "minLength": 1 },
+    "name": { "type": "string", "minLength": 1 },
+    "click_service_name": { "type": ["string", "null"], "minLength": 1 },
+    "merchant_id": { "type": "string", "minLength": 1 },
+    "merchant_user_id": { "type": ["string", "null"], "minLength": 1 },
+    "service_id": { "type": ["string", "null"], "minLength": 1 },
+    "tg_channel_id": { "type": ["string", "null"], "minLength": 1 },
+    "ikpu_code": { "type": ["string", "null"] },
+    "package_code": { "type": ["string", "null"] },
+    "nds": {
+      "anyOf": [
+        { "type": "string", "minLength": 1 },
+        { "type": "null" }
+      ]
+    },
+    "fiskal_type": {
+      "type": "string",
+      "enum": ["1", "3"],
+      "description": "Fiscal type, allowed values: 1 or 3"
+    },
+    "latitude": { "type": "string", "minLength": 1 },
+    "longitude": { "type": "string", "minLength": 1 },
+    "address": { "type": ["string", "null"], "minLength": 1 },
+    "region_id": { "type": "integer" },
+    "category_id": { "type": "string", "minLength": 1 },
+    "delivery_enabled": { "type": "boolean" },
+    "pickup_enabled": { "type": "boolean" },
+    "delivery_info": {
+      "type": "object",
+      "properties": {
+        "from": { "type": "string" },
+        "to": { "type": "string" },
+        "offset_time": { "type": "string" },
+        "interval": { "type": "string" }
+      },
+      "required": ["from", "to", "offset_time", "interval"],
+      "additionalProperties": false
+    },
+    "pickup_info": {
+      "type": "object",
+      "properties": {
+        "from": { "type": "string" },
+        "to": { "type": "string" }
+      },
+      "required": ["from", "to"],
+      "additionalProperties": false
+    },
+    "cooking_time": {"type": ["string","null"]},
+    "schedule": { "type": ["string", "null"], "minLength": 1 },
+    "template": { "type": "string", "minLength": 1 },
+    "admin_phone": { "type": "string", "minLength": 1 },
+    "admin_name": { "type": ["string", "null"] },
+    "support_phone": { "type": ["string", "null"] },
+    "status": { "type": "boolean" },
+    "platform_app_id": { "type": ["string", "null"], "minLength": 1 },
+    "platform_sent": { "type": "boolean" },
+    "platform_is_moderated": { "type": "boolean" },
+    "app_template": { "type": ["string", "null"], "minLength": 1 },
+    "is_tested": { "type": "boolean" },
+    "is_moderated": { "type": "boolean" },
+    "schedule_days": {
+      "type": "object",
+      "properties": {
+        "days": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "is_available": { "type": "boolean" }
+            },
+            "required": ["name", "is_available"],
+            "additionalProperties": false
+          }
+        },
+        "time": {
+          "type": "object",
+          "properties": {
+            "from": { "type": "string" },
+            "to": { "type": "string" },
+            "full_time": { "type": "boolean" }
+          },
+          "required": ["from", "to", "full_time"],
+          "additionalProperties": false
+        },
+        "cooking_time": {"type": ["string","null"]
+        }},
+      "required": ["days", "time", "cooking_time"],
+      "additionalProperties": false
+    },
+    "is_closed": { "type": "boolean" },
+    "offer_ru": { "type": ["string", "null"], "format": "string" },
+    "offer_uz": { "type": ["string", "null"], "format": "string" },
+    "offer_en": { "type": ["string", "null"], "format": "string" },
+    "merchant": {
+      "type": "object",
+      "properties": {
+        "_id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "merchant_id": { "type": "string", "minLength": 1 },
+        "merchant_user_id": { "type": ["string", "null"], "minLength": 1 },
+        "logo": { "type": ["string", "null"], "format": "string" },
+        "api_token": { "type": "string", "minLength": 1 },
+        "__v": { "type": "integer" }
+      },
+      "required": ["_id", "name", "merchant_id", "merchant_user_id", "logo", "api_token", "__v"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "has_menu", "id", "name", "merchant_id", "service_id", "status", "schedule_days", "delivery_info",
+    "pickup_info", "platform_sent", "platform_is_moderated", "is_tested", "is_moderated"
+  ],
+  "additionalProperties": false
+}
